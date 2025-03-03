@@ -171,6 +171,8 @@ jobs:
           )
       - name: Create MacOS Release
         run: cp "dist/release-macos/Simple DHCP Server.dmg" "dist/release/Simple DHCP Server ${{github.ref_name}}.dmg"
+      - name: Create Linux .desktop release
+        run: cp simple-dhcp-server*.desktop "dist/release/" 
       - name: create release
         uses: ncipollo/release-action@v1.15.0
         with:
