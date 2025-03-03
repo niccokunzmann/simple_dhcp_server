@@ -42,7 +42,7 @@ isoliert.
 2. Installiere und starte den Einfachen DHCP Server:
 
     ```sh
-    sudo pipx run --spec simple-dhcp-server[qt] python-dhcp-server-qt  
+    sudo pipx run --spec simple-dhcp-server[qt] simple-dhcp-server-qt  
     ```
 
 ## Entwicklungsumgebung Aufsetzen
