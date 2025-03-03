@@ -38,7 +38,7 @@ pip install git+https://github.com/niccokunzmann/simple_dhcp_server.git
 2. Install and start the Simple DHCP Server:
 
     ```sh
-    sudo pipx run --spec simple-dhcp-server[qt] python-dhcp-server-qt  
+    sudo pipx run --spec simple-dhcp-server[qt] simple-dhcp-server-qt  
     ```
 
 ## Development Setup

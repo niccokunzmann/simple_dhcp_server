@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
 Name=Python DHCP Server
-Exec=sudo sh -c "`dirname %k`/server/linux-start-gui.sh"
+Exec=sudo sh -c "cd \"`dirname %k`\" && pipx run --spec simple-dhcp-server[qt] simple-dhcp-server-qt || read REPLY"
 Icon=python3
 Terminal=true
