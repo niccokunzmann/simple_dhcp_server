@@ -4,27 +4,28 @@ title: "Linux"
 
 ## Desktop Starter
 
-You can download a single starter file to start the Simple DHCP Server. Navigate
-to the [releases][2] and download `simple-dhcp-server.desktop`.
+Vous pouvez télécharger un fichier de démarrage pour démarrer le Serveur DHCP
+Simple. Accédez à [releases][2] et téléchargez `simple-dhcp-server.desktop`.
 
-1. Install the [pipx] package.
-2. Double-click the downloaded file and mark it as executable.
-3. Enter the super user password to start the Simple DHCP Server.
+1. Installez le package [pipx].
+2. Double-cliquez sur le fichier téléchargé et marquez-le comme exécutable.
+3. Entrez le mot de passe du super utilisateur pour démarrer le serveur DHCP
+   simple.
 
 ## Debian/Ubuntu
 
 Sur Ubuntu, vous avez le choix d'installer le paquet via [source][1].
 
-If you would like to use the Tk frontend, also intall these packages:
+Si vous souhaitez utiliser le Tk frontend, installez également ces packages:
 
 ```sh
 sudo apt-get install python3 python3-tk
 pip install simple-dhcp-server
 ```
 
-## Other Systems
+## Autres systèmes
 
-On all Linux systems, you can install the [source package][1].
+Sur tous les systèmes Linux, vous pouvez installer le [source package][1].
 
 ## Utilisation
 
