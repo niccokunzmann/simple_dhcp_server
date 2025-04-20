@@ -7,8 +7,9 @@ Les contributions sont les bienvenues !
 Voici quelques façons de nous aider :
 
 - Si vous trouvez un bogue, veuillez ouvrir un [issue] [0].
-- Write documentation for how to use this on your operation system.
-- Give us a [star on GitHub][1]
+- Rédigez une documentation expliquant comment l’utiliser sur votre système
+  d’exploitation.
+- Donnez-nous une [star on GitHub][1]
 - [Fund development](#funding)
 - [Traduisez ce site Web][4]
 
@@ -16,7 +17,8 @@ Voici quelques façons de nous aider :
 
 ## Financement
 
-There are several ways in which you can fund this software to make it nicer:
+Il existe plusieurs façons de financer ce logiciel pour le rendre plus agréable
+:
 
 - [GitHub sponsors][2]
 - [Polar][3]
