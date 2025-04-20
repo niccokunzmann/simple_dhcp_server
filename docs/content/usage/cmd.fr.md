@@ -1,11 +1,11 @@
 ---
-title: "Command Line Usage"
+title: "Utilisation de la ligne de commande"
 ---
 
-The Simple DHCP Server provides several options for executing it, depending on
-the install method.
+Le Simple DHCP Serveur fournit plusieurs options pour l'exécuter, en fonction de
+la méthode d'installation.
 
-* Get **Help**:
+* Obtenir de l'**aide**:
 
     ```sh
     simple-dhcp-server
@@ -37,5 +37,5 @@ the install method.
 
 ## Linux (sudo)
 
-On Linux, you need to run the commands with `sudo` to have access to the
-network. That is because the DHCP port 67 is below 1024.
+Sous Linux, vous devez exécuter les commandes avec `sudo` pour accéder au
+réseau. Car le port DHCP 67 est inférieur à 1024.
