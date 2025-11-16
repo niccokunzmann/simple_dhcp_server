@@ -1,5 +1,5 @@
 ---
-title: "Installer"
+title: "Install"
 ---
 
 Vous pouvez installer le Serveur DHCP Simple sur [Windows], [Linux] et [Mac OS].

@@ -1,5 +1,5 @@
 ---
-title: "Installieren"
+title: "Install"
 ---
 
 Du kannst den Einfachen DHCP Server auf [Windows], [Linux] und [Mac OS]
