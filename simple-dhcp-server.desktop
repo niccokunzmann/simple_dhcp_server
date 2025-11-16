@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
 Name=Python DHCP Server
-Exec=sudo sh -c "cd \"`dirname %k`\" && pispx run --spec simple-dhcp-server[qt] simple-dhcp-server-qt || ( echo 'Install pipx from https://pipx.pypa.io/stable/installation/ and start this again.'; read REPLY )"
+Exec=sudo sh -c "cd \"`dirname %k`\" && pipx run --spec simple-dhcp-server[qt] simple-dhcp-server-qt || ( echo 'Install pipx from https://pipx.pypa.io/stable/installation/ and start this again.'; read REPLY )"
 Icon=python3
 Terminal=true
