@@ -1,5 +1,5 @@
 ---
-title: "Andere Quellen"
+title: "Other Sources"
 ---
 
 Du kannst die Quelldateien direkt installieren. Es gibt mehrere Wege, das zu

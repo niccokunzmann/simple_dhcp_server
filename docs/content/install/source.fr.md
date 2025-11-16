@@ -1,5 +1,5 @@
 ---
-title: "Autres sources"
+title: "Other Sources"
 ---
 
 Vous pouvez installer les fichiers sources directement. Il y a beaucoup de
