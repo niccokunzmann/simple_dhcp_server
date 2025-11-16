@@ -1,5 +1,5 @@
 ---
-title: "Utilisation de la ligne de commande"
+title: "Command Line Usage"
 ---
 
 Le Simple DHCP Serveur fournit plusieurs options pour l'exécuter, en fonction de

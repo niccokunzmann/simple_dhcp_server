@@ -1,5 +1,5 @@
 ---
-title: "Kommandozeile"
+title: "Command Line Usage"
 ---
 
 Der einfache DHCP Server bietet mehrere Optionen für die Ausführung, je nach
