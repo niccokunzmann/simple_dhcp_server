@@ -1,5 +1,5 @@
 ---
-title: "Contribuer"
+title: "Contribute"
 ---
 
 Les contributions sont les bienvenues !
