@@ -2,8 +2,8 @@
 type: "home"
 ---
 
-This is a purely Python DHCP server that does not require any additional
-libraries or installs other that Python 3.
+Éste es un servidor DHCP puramente en python que no requiere ninguna librería
+adicional ni instalación mas que python 3.
 
 ![](/img/windows-tk.png)
 
