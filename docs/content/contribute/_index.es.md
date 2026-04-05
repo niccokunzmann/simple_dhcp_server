@@ -2,9 +2,9 @@
 title: "Contribute"
 ---
 
-Contributions are welcome!
+Las contribuciones con bienvenidas!
 
-Here are some ways in which you can help:
+Aquí hay algunas formas en las que tu puedes ayudar:
 
 - If you find a bug, please open an [issue][0].
 - Write documentation for how to use this on your operation system.
