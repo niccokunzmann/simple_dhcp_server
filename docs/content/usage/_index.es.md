@@ -4,7 +4,8 @@ title: "Configure"
 
 ![](/img/windows-files.png)
 
-When you first start the Simple DHCP Server, you can see two files appearing.
+Cuando tuy inicias Simple DHCP Server por primera vez, tu verás aparecer dos
+archivos.
 
 - `hosts.csv` is the database of all devices that were known. This is used to
   re-assign the same IP address and remember assignments between starts of the
