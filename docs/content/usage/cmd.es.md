@@ -2,10 +2,10 @@
 title: "Command Line Usage"
 ---
 
-The Simple DHCP Server provides several options for executing it, depending on
-the install method.
+El simple servidor DHCP provee múltiples opciones para ejecutarlo, dependiendo
+del método de instalación.
 
-* Get **Help**:
+* Obtener**Ayuda**:
 
     ```sh
     simple-dhcp-server
