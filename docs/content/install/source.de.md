@@ -1,5 +1,5 @@
 ---
-title: "Other Sources"
+title: "Andere Quellen"
 ---
 
 Du kannst die Quelldateien direkt installieren. Es gibt mehrere Wege, das zu
@@ -42,7 +42,7 @@ isoliert.
 2. Installiere und starte den Einfachen DHCP Server:
 
     ```sh
-    sudo pipx run --spec simple-dhcp-server[qt] simple-dhcp-server-qt  
+    sudo pipx run --spec simple-dhcp-server[qt] simple-dhcp-server-qt
     ```
 
 ## Entwicklungsumgebung Aufsetzen
