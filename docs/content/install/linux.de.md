@@ -22,7 +22,7 @@ sudo apt-get install python3 python3-tk
 pip install simple-dhcp-server
 ```
 
-## Other Systems
+## Andere Systeme
 
 On all Linux systems, you can install the [source package][1].
 
