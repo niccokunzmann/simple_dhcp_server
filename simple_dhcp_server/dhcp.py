@@ -446,6 +446,8 @@ class DHCPServer(object):
             except OSError:
                 # OSError: [WinError 10038] An operation was attempted on something that is not a socket
                 pass
+            except DHCPPacketError as error:
+                self.configuration.debug("dropped malformed DHCP packet: {}".format(error))
             else:
                 self.received(packet)
         for transaction_id, transaction in list(self.transactions.items()):

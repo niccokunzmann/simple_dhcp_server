@@ -32,7 +32,62 @@ shortunpack = lambda data: (data[0] << 8) + data[1]
 shortpack = lambda i: bytes([i >> 8, i & 255])
 
 
+class DHCPPacketError(ValueError):
+    """Raised when a received DHCP packet is malformed."""
+
+
+def require_length(data, length, field):
+    if len(data) != length:
+        raise DHCPPacketError("{} must be {} bytes long".format(field, length))
+    return data
+
+
+def require_min_length(data, length, field):
+    if len(data) < length:
+        raise DHCPPacketError("{} must be at least {} bytes long".format(field, length))
+    return data
+
+
+def require_multiple_of(data, length, field):
+    if len(data) % length:
+        raise DHCPPacketError("{} length must be a multiple of {}".format(field, length))
+    return data
+
+
+def unpack_ipv4_address(data):
+    return inet_ntoa(require_length(data, 4, "IPv4 address option"))
+
+
+def unpack_ipv4_addresses(data):
+    return inet_ntoaX(require_multiple_of(data, 4, "IPv4 address list option"))
+
+
+def unpack_uint32(data):
+    return struct.unpack('>I', require_length(data, 4, "32-bit integer option"))[0]
+
+
+def unpack_byte(data):
+    return require_length(data, 1, "byte option")[0]
+
+
+def unpack_short(data):
+    return shortunpack(require_length(data, 2, "short integer option"))
+
+
+def unpack_ascii(data):
+    try:
+        return data.decode('ASCII')
+    except UnicodeDecodeError as error:
+        raise DHCPPacketError("ASCII option contains invalid data") from error
+
+
+def unpack_dhcp_message_type(data):
+    message_type = unpack_byte(data)
+    return dhcp_message_types.get(message_type, message_type)
+
+
 def macunpack(data):
+    require_min_length(data, 6, "MAC address option")
     s = base64.b16encode(data)
     return ':'.join([s[i:i+2].decode('ascii') for i in range(0, 12, 2)])
 
@@ -40,7 +95,7 @@ def macpack(mac):
     return base64.b16decode(mac.replace(':', '').replace('-', '').encode('ascii'))
 
 def unpackbool(data):
-    return data[0]
+    return unpack_byte(data)
 
 def packbool(bool):
     return bytes([bool])
@@ -48,40 +103,40 @@ def packbool(bool):
 options = [
 # RFC1497 vendor extensions
     ('pad', None, None),
-    ('subnet_mask', inet_ntoa, inet_aton),
+    ('subnet_mask', unpack_ipv4_address, inet_aton),
     ('time_offset', None, None),
-    ('router', inet_ntoaX, inet_atonX),
-    ('time_server', inet_ntoaX, inet_atonX),
-    ('name_server', inet_ntoaX, inet_atonX),
-    ('domain_name_server', inet_ntoaX, inet_atonX),
-    ('log_server', inet_ntoaX, inet_atonX),
-    ('cookie_server', inet_ntoaX, inet_atonX),
-    ('lpr_server', inet_ntoaX, inet_atonX),
-    ('impress_server', inet_ntoaX, inet_atonX),
-    ('resource_location_server', inet_ntoaX, inet_atonX),
-    ('host_name', lambda d: d.decode('ASCII'), lambda d: d.encode('ASCII')),
+    ('router', unpack_ipv4_addresses, inet_atonX),
+    ('time_server', unpack_ipv4_addresses, inet_atonX),
+    ('name_server', unpack_ipv4_addresses, inet_atonX),
+    ('domain_name_server', unpack_ipv4_addresses, inet_atonX),
+    ('log_server', unpack_ipv4_addresses, inet_atonX),
+    ('cookie_server', unpack_ipv4_addresses, inet_atonX),
+    ('lpr_server', unpack_ipv4_addresses, inet_atonX),
+    ('impress_server', unpack_ipv4_addresses, inet_atonX),
+    ('resource_location_server', unpack_ipv4_addresses, inet_atonX),
+    ('host_name', unpack_ascii, lambda d: d.encode('ASCII')),
     ('boot_file_size', None, None),
     ('merit_dump_file', None, None),
     ('domain_name', None, None),
-    ('swap_server', inet_ntoa, inet_aton),
+    ('swap_server', unpack_ipv4_address, inet_aton),
     ('root_path', None, None),
     ('extensions_path', None, None),
 # IP Layer Parameters per Host
     ('ip_forwarding_enabled', unpackbool, packbool),
     ('non_local_source_routing_enabled', unpackbool, packbool),
     ('policy_filer', None, None),
-    ('maximum_datagram_reassembly_size', shortunpack, shortpack),
-    ('default_ip_time_to_live', lambda data: data[0], lambda i: bytes([i])),
+    ('maximum_datagram_reassembly_size', unpack_short, shortpack),
+    ('default_ip_time_to_live', unpack_byte, lambda i: bytes([i])),
     ('path_mtu_aging_timeout', None, None),
     ('path_mtu_plateau_table', None, None),
 # IP Layer Parameters per Interface
     ('interface_mtu', None, None),
     ('all_subnets_are_local', unpackbool, packbool),
-    ('broadcast_address', inet_ntoa, inet_aton),
+    ('broadcast_address', unpack_ipv4_address, inet_aton),
     ('perform_mask_discovery', unpackbool, packbool),
     ('mask_supplier', None, None),
     ('perform_router_discovery', None, None),
-    ('router_solicitation_address', inet_ntoa, inet_aton),
+    ('router_solicitation_address', unpack_ipv4_address, inet_aton),
     ('static_route', None, None),
 # Link Layer Parameters per Interface
     ('trailer_encapsulation_option', None, None),
@@ -93,24 +148,24 @@ options = [
     ('tcp_keep_alive_garbage', None, None),
 # Application and Service Parameters Part 1
     ('network_information_service_domain', None, None),
-    ('network_informtaion_servers', inet_ntoaX, inet_atonX),
-    ('network_time_protocol_servers', inet_ntoaX, inet_atonX),
+    ('network_informtaion_servers', unpack_ipv4_addresses, inet_atonX),
+    ('network_time_protocol_servers', unpack_ipv4_addresses, inet_atonX),
     ('vendor_specific_information', None, None),
-    ('netbios_over_tcp_ip_name_server', inet_ntoaX, inet_atonX),
-    ('netbios_over_tcp_ip_datagram_distribution_server', inet_ntoaX, inet_atonX),
+    ('netbios_over_tcp_ip_name_server', unpack_ipv4_addresses, inet_atonX),
+    ('netbios_over_tcp_ip_datagram_distribution_server', unpack_ipv4_addresses, inet_atonX),
     ('netbios_over_tcp_ip_node_type', None, None),
     ('netbios_over_tcp_ip_scope', None, None),
-    ('x_window_system_font_server', inet_ntoaX, inet_atonX),
-    ('x_window_system_display_manager', inet_ntoaX, inet_atonX),
+    ('x_window_system_font_server', unpack_ipv4_addresses, inet_atonX),
+    ('x_window_system_display_manager', unpack_ipv4_addresses, inet_atonX),
 # DHCP Extensions
-    ('requested_ip_address', inet_ntoa, inet_aton),
-    ('ip_address_lease_time', lambda d: struct.unpack('>I', d)[0], lambda i: struct.pack('>I', i)),
+    ('requested_ip_address', unpack_ipv4_address, inet_aton),
+    ('ip_address_lease_time', unpack_uint32, lambda i: struct.pack('>I', i)),
     ('option_overload', None, None),
-    ('dhcp_message_type', lambda data: dhcp_message_types.get(data[0], data[0]), (lambda name: bytes([reversed_dhcp_message_types.get(name, name)]))),
-    ('server_identifier', inet_ntoa, inet_aton),
+    ('dhcp_message_type', unpack_dhcp_message_type, (lambda name: bytes([reversed_dhcp_message_types.get(name, name)]))),
+    ('server_identifier', unpack_ipv4_address, inet_aton),
     ('parameter_request_list', list, bytes),
     ('message', None, None),
-    ('maximum_dhcp_message_size', shortunpack, shortpack),
+    ('maximum_dhcp_message_size', unpack_short, shortpack),
     ('renewal_time_value', None, None),
     ('rebinding_time_value', None, None),
     ('vendor_class_identifier', None, None),
@@ -119,18 +174,18 @@ options = [
     ('boot_file_name', None, None),
 # Application and Service Parameters Part 2
     ('network_information_service_domain', None, None),
-    ('network_information_servers', inet_ntoaX, inet_atonX),
+    ('network_information_servers', unpack_ipv4_addresses, inet_atonX),
     ('', None, None),
     ('', None, None),
-    ('mobile_ip_home_agent', inet_ntoaX, inet_atonX),
-    ('smtp_server', inet_ntoaX, inet_atonX),
-    ('pop_servers', inet_ntoaX, inet_atonX),
-    ('nntp_server', inet_ntoaX, inet_atonX),
-    ('default_www_server', inet_ntoaX, inet_atonX),
-    ('default_finger_server', inet_ntoaX, inet_atonX),
-    ('default_irc_server', inet_ntoaX, inet_atonX),
-    ('streettalk_server', inet_ntoaX, inet_atonX),
-    ('stda_server', inet_ntoaX, inet_atonX),
+    ('mobile_ip_home_agent', unpack_ipv4_addresses, inet_atonX),
+    ('smtp_server', unpack_ipv4_addresses, inet_atonX),
+    ('pop_servers', unpack_ipv4_addresses, inet_atonX),
+    ('nntp_server', unpack_ipv4_addresses, inet_atonX),
+    ('default_www_server', unpack_ipv4_addresses, inet_atonX),
+    ('default_finger_server', unpack_ipv4_addresses, inet_atonX),
+    ('default_irc_server', unpack_ipv4_addresses, inet_atonX),
+    ('streettalk_server', unpack_ipv4_addresses, inet_atonX),
+    ('stda_server', unpack_ipv4_addresses, inet_atonX),
     ]
 
 assert options[18][0] == 'extensions_path', options[18][0]
@@ -150,6 +205,8 @@ class ReadBootProtocolPacket(object):
     del i, o
 
     def __init__(self, data, address = ('0.0.0.0', 0)):
+        if len(data) < 240:
+            raise DHCPPacketError("DHCP packet must be at least 240 bytes long")
         self.data = data
         self.address = address
         self.host = address[0]
@@ -172,9 +229,14 @@ class ReadBootProtocolPacket(object):
         self.next_server_ip_address = self.SIADDR = inet_ntoa(data[20:24])
         self.relay_agent_ip_address = self.GIADDR = inet_ntoa(data[24:28])
 
+        if self.hardware_address_length > 16:
+            raise DHCPPacketError("hardware address length exceeds BOOTP CHADDR field")
         self.client_mac_address = self.CHADDR = macunpack(data[28: 28 + self.hardware_address_length])
         index = 236
-        self.magic_cookie = self.magic_cookie = inet_ntoa(data[index:index + 4]); index += 4
+        magic_cookie = data[index:index + 4]
+        if magic_cookie != b'\x63\x82\x53\x63':
+            raise DHCPPacketError("invalid DHCP magic cookie")
+        self.magic_cookie = self.magic_cookie = inet_ntoa(magic_cookie); index += 4
         self.options = dict()
         self.named_options = dict()
         while index < len(data):
@@ -186,13 +248,22 @@ class ReadBootProtocolPacket(object):
             if option == 255:
                 # end
                 break
+            if index >= len(data):
+                raise DHCPPacketError("DHCP option {} is missing a length byte".format(option))
             option_length = data[index]; index += 1
+            if index + option_length > len(data):
+                raise DHCPPacketError("DHCP option {} payload is truncated".format(option))
             option_data = data[index: index + option_length]; index += option_length
             self.options[option] = option_data
             if option < len(options):
                 option_name, function, _ = options[option]
                 if function:
-                    option_data = function(option_data)
+                    try:
+                        option_data = function(option_data)
+                    except DHCPPacketError:
+                        raise
+                    except (IndexError, OSError, struct.error, UnicodeDecodeError) as error:
+                        raise DHCPPacketError("invalid DHCP option {}".format(option)) from error
                 if option_name:
                     setattr(self, option_name, option_data)
                     self.named_options[option_name] = option_data
@@ -257,7 +328,10 @@ def main():
     while 1:
         reads = select.select([s1], [], [], 1)[0]
         for s in reads:
-            packet = ReadBootProtocolPacket(*s.recvfrom(4096))
+            try:
+                packet = ReadBootProtocolPacket(*s.recvfrom(4096))
+            except DHCPPacketError:
+                continue
             print(packet)
 
 if __name__ == '__main__':
