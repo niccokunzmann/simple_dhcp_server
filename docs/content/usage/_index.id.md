@@ -67,7 +67,10 @@ More options are documented in the files respectively. If you use the
 
 There is a whole chapter on how to [use the Simple DHCP Server from the command
 line][There is a whole chapter on how to [use the Simple DHCP Server from the
-command line]{1}.].
+command line][There is a whole chapter on how to [use the Simple DHCP Server
+from the command line][There is a whole chapter on how to [use the Simple DHCP
+Server from the command line]{1}.].].].
 
 [There is a whole chapter on how to [use the Simple DHCP Server from the command
-line]{1}.]: cmd.md
+line][There is a whole chapter on how to [use the Simple DHCP Server from the
+command line]{1}.].]: cmd.md
