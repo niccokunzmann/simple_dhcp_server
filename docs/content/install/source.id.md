@@ -46,16 +46,21 @@ pip install git+https://github.com/niccokunzmann/simple_dhcp_server.git
 ## Development Setup
 
 You can also [setup the Simple DHCP Server for development][You can also [setup
-the Simple DHCP Server for development]{1}.].
+the Simple DHCP Server for development][You can also [setup the Simple DHCP
+Server for development][You can also [setup the Simple DHCP Server for
+development]{1}.].].].
 
 ## Usage
 
 After installation, refer to the [usage][After installation, refer to the
-[usage]{1}.].
+[usage][After installation, refer to the [usage][After installation, refer to
+the [usage]{1}.].].].
 
-[4]: https://www.python.org/
+[GitHub]: https://www.python.org/
 [PyPI]: https://pypi.org/project/simple-dhcp-server/
 [GitHub]: https://github.com/niccokunzmann/simple_dhcp_server/
-[After installation, refer to the [usage]{1}.]: /usage/cmd.md
-[4]: https://pipx.pypa.io/stable/installation/
-[You can also [setup the Simple DHCP Server for development]{1}.]: ../develop
+[After installation, refer to the [usage][After installation, refer to the
+[usage]{1}.].]: /usage/cmd.md
+[GitHub]: https://pipx.pypa.io/stable/installation/
+[You can also [setup the Simple DHCP Server for development][You can also [setup
+the Simple DHCP Server for development]{1}.].]: ../develop
