@@ -7,9 +7,9 @@ libraries or installs other that Python 3.
 
 ![](/img/windows-tk.png)
 
-- [Install][[Install]{1}]
-- [Contribute][[Contribute]{1}]
-- [View the Source][[View the Source]{1}]
+- [Install][[Install][[Install][[Install]{1}]]]
+- [Contribute][[Contribute][[Contribute][[Contribute]{1}]]]
+- [View the Source][[View the Source][[View the Source][[View the Source]{1}]]]
 
 ## Compatibility
 
@@ -32,7 +32,7 @@ This Simple DHCP server
 - remembers addresses in the `hosts.csv` file
 - can be configured to serve all DHCP options using Python/Yaml
 
-[Contributions welcome!][[Contribute]{1}]
+[Contributions welcome!][[Contribute][[Contribute][[Contribute]{1}]]]
 
 ## Related Work
 
@@ -41,6 +41,7 @@ This program was created to find Raspberry Pis in the network.
 - [Adafruit-Pi-Finder](https://github.com/adafruit/Adafruit-Pi-Finder)
 - [Angry IP](https://angryip.org/)
 
-[[Contribute]{1}]: contribute
-[[Install]{1}]: install
-[[View the Source]{1}]: https://github.com/niccokunzmann/simple_dhcp_server/
+[[Contribute][[Contribute]{1}]]: contribute
+[[Install][[Install]{1}]]: install
+[[View the Source][[View the Source]{1}]]:
+https://github.com/niccokunzmann/simple_dhcp_server/
