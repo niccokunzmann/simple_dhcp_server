@@ -71,3 +71,10 @@ version-file = "simple_dhcp_server/_version.py"
 
 [tool.hatch.metadata]
 allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["simple_dhcp_server"]
+artifacts = [
+    "simple_dhcp_server/*.yml",
+    "simple_dhcp_server/*.conf",
+]
