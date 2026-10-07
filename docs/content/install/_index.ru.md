@@ -2,10 +2,11 @@
 title: "Install"
 ---
 
-You can install the Simple DHCP Server on [Windows], [Linux] and [Mac OS].
-Additionally to that, you can install it from [source][1] in many ways.
+Вы можете установить Простой DHCP-сервер в операционных системах [Windows],
+[Linux] и [Mac OS]. Кроме того, доступна установка из [исходного кода][1]
+различными способами.
 
-You can view all [releases][2].
+Вы можете ознакомиться со всеми [релизами][2].
 
 [Windows]: ./windows.md
 [Linux]: ./linux.md
