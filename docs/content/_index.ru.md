@@ -2,41 +2,42 @@
 type: "home"
 ---
 
-This is a purely Python DHCP server that does not require any additional
-libraries or installs other that Python 3.
+Это DHCP-сервер, полностью написанный на Python. Он не требует установки
+дополнительных библиотек или стороннего программного обеспечения, кроме самого
+Python 3.
 
 ![](/img/windows-tk.png)
 
-- [Install][2]
-- [Contribute][1]
-- [View the Source][3]
+- [Установить][2]
+- [Внести вклад][1]
+- [Просмотреть исходный код][3]
 
-## Compatibility
+## Поддерживаемые платформы
 
-It was testet under Ubuntu 14 and later with Python and Windows 7 and later. It
-does not use any operating system specific Python functions, so it should work
-when Python 3 works.
+Программа протестирована в Ubuntu 14 и новее, а также в Windows 7 и более
+поздних версиях. Она не использует специфичные для ОС функции Python, поэтому
+будет работать везде, где работает Python 3.
 
-## Features
+## Возможности
 
-This DHCP server program will assign IP addresses ten seconds later than
-requested. So, it can be used in networks that already have a DHCP server
-running.
+Этот DHCP-сервер выдаёт IP-адреса с задержкой в 10 секунд. Благодаря этому его
+можно использовать в сетях, где уже работает другой DHCP-сервер.
 
-This Simple DHCP server
+Этот Простой DHCP-сервер
 
-- shows clients in the network
-- lists IP address, MAC address and host name
-- highlights recently refreshed/added clients
-- assigns IP addresses 10 seconds later than usual DHCP servers
-- remembers addresses in the `hosts.csv` file
-- can be configured to serve all DHCP options using Python/Yaml
+- отображает клиентов в сети
+- выводит IP-адрес, MAC-адрес и имя хоста
+- выделяет недавно добавленных/обновлённых клиентов
+- назначает IP-адреса с задержкой в 10 секунд по сравнению с обычными
+  DHCP-серверами
+- сохраняет адреса в файле `hosts.csv`
+- может быть настроен на передачу всех DHCP-опций через Python/Yaml
 
-[Contributions welcome!][1]
+[Приветствуется помощь проекту!][1]
 
-## Related Work
+## Связанные проекты
 
-This program was created to find Raspberry Pis in the network.
+Эта программа была создана для поиска Raspberry Pi в сети.
 
 - [Adafruit-Pi-Finder](https://github.com/adafruit/Adafruit-Pi-Finder)
 - [Angry IP](https://angryip.org/)
